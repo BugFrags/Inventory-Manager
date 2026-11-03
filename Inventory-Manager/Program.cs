@@ -1,7 +1,5 @@
 ﻿using static Inventory_Manager.Utils;
 using static Inventory_Manager.Tasks;
-using Microsoft.VisualBasic.FileIO;
-using System.Data;
 
 var LOGO = @"
 ----------------------------------------------------------------------------------------------------------------------------------
@@ -16,15 +14,17 @@ var LOGO = @"
 ";
 
 var MENU = @"
-[D] Query discontinued items
-[] TEST
+[A] Query active products
+[D] Query discontinued products
+[L] List low stock products
+[T] Top Selling products
 [E] Exit
 ";
 
 var running = true;
 
 Console.WriteLine("Loading database...");
-DataTable inventory = LoadDataBase();
+var inventory = LoadDataBase();
 Console.WriteLine("Load successful!");
 Console.WriteLine(LOGO);
 
@@ -36,16 +36,20 @@ while (running)
     
     var command = Console.ReadLine();
     
-    switch (command.ToUpper().Trim())
+    switch (command?.ToUpper().Trim())
     {
         case "D": 
-            await ListDiscontinuedItems(inventory);
+            await ListDiscontinuedProducts(inventory);
+            break;
+        case "A":
+            await ListActiveProducts(inventory);
+            break;
+        case "L":
+            await LowStockProducts(inventory);
             break;
         case "E": 
             Console.WriteLine("Have a nice day!"); 
             running = false; 
             break;
     }
-    
-    // Console.Clear();
 }

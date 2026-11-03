@@ -6,7 +6,34 @@ namespace Inventory_Manager;
 
 public class Utils
 {
-    static string PATH = "PATH-TO-DATABASE";
+    static string PATH = "DIRECTORY";
+
+    public static async Task DownloadManager(string results)
+    {
+        Console.WriteLine();
+        Console.WriteLine("Do you want to download the results? Y/n");
+        string answer = Console.ReadLine()?.Trim().ToUpper() ?? "";
+
+        if (answer == "Y") await DownloadResults(results);
+    }
+    
+    public static async Task DownloadResults(string json)
+    {
+        Console.WriteLine("Downloading results...");
+        
+        await Task.Delay(2000);
+        Console.WriteLine("What would you like to name the downloaded file?");
+        Console.Write("> ");
+        var fileName = Console.ReadLine();
+        
+        await File.WriteAllTextAsync($"{fileName}.json", json);
+        
+        Console.WriteLine("Download completed!");
+        Console.WriteLine($"The file was saved as {fileName}.json");
+        await Task.Delay(2000);
+        
+        Console.WriteLine();
+    }
     
     private static DataTable LoadCsv(string path, bool hasHeader = true)
     {
