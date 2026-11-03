@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory-Manager", "Inventory-Manager\Inventory-Manager.csproj", "{15037DB5-D046-4DA0-8069-2DAF28C6679F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15037DB5-D046-4DA0-8069-2DAF28C6679F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15037DB5-D046-4DA0-8069-2DAF28C6679F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15037DB5-D046-4DA0-8069-2DAF28C6679F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15037DB5-D046-4DA0-8069-2DAF28C6679F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
