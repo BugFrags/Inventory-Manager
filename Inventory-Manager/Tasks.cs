@@ -9,7 +9,7 @@ public class Tasks
     /// Inputs a datatable of our inventory, creates a JSON of each discontinued item organized by supplier.
     /// </summary>
     /// <param name="dt">Datatable of our Inventory</param>
-    public static void ListDiscontinuedItems(DataTable dt)
+    public static async Task ListDiscontinuedItems(DataTable dt)
     {
         var results = dt.AsEnumerable()
             .Where(row => row.Field<String>("Status") == "Discontinued")
@@ -25,7 +25,17 @@ public class Tasks
             Console.WriteLine($"{row.Name} - {row.Catagory} - {row.Supplier}");
         }
         
-        string JSON = JsonSerializer.Serialize(results);
-        File.WriteAllText("DiscontinuedItems.json", JSON);
+        Console.WriteLine("Do you want to download the results? Y/n");
+        string answer = Console.ReadLine()?.Trim().ToUpper() ?? "";
+
+        if (answer == "Y")
+        {
+            string json = JsonSerializer.Serialize(results);
+            
+            Console.WriteLine("Downloading results...");
+            await Task.Delay(2000);
+            await File.WriteAllTextAsync("DiscontinuedItems.json", json);
+            Console.WriteLine("Download completed!");
+        }
     }
 }

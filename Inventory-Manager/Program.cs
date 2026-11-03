@@ -16,7 +16,8 @@ var LOGO = @"
 ";
 
 var MENU = @"
-[Q] Query Database
+[D] Query discontinued items
+[] TEST
 [E] Exit
 ";
 
@@ -35,10 +36,10 @@ while (running)
     
     var command = Console.ReadLine();
     
-    switch (command.ToUpper())
+    switch (command.ToUpper().Trim())
     {
-        case "Q": 
-            ListDiscontinuedItems(inventory);
+        case "D": 
+            await ListDiscontinuedItems(inventory);
             break;
         case "E": 
             Console.WriteLine("Have a nice day!"); 
@@ -47,12 +48,4 @@ while (running)
     }
     
     // Console.Clear();
-}
-
-
-static async Task RunAsyncOperationAsync()
-{
-    Console.WriteLine("Starting async operation...");
-    await Task.Delay(2000); // Simulate async work
-    Console.WriteLine("Async operation completed.");
 }
