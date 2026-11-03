@@ -66,4 +66,44 @@ public class Tasks
         
         await DownloadManager(JsonSerializer.Serialize(results));
     }
+    
+    public static async Task TopSellingProducts(DataTable dt)
+    {
+        var results = dt.AsEnumerable()
+            .OrderByDescending(row => Convert.ToInt32(row.Field<string>("Sales_Volume")))
+            .Take(20)
+            .Select(row => new
+            {
+                Name = row.Field<string>("Product_Name"),
+                SalesVolume = Convert.ToInt32(row.Field<string>("Sales_Volume")),
+                Warehouse = row.Field<string>("Warehouse_Location")
+            });
+        
+        foreach (var row in results)
+        {
+            Console.WriteLine($"{row.Name} - {row.SalesVolume} - {row.Warehouse}");
+        }
+        
+        await DownloadManager(JsonSerializer.Serialize(results));
+    }
+    
+    public static async Task SalesByCategory(DataTable dt)
+    {
+        var results = dt.AsEnumerable()
+            .GroupBy(row => row.Field<string>("Catagory"))
+            .Select( group => new
+            {
+                Category = group.Key,
+                TotalStock = group.Sum(row => Convert.ToInt32(row.Field<string>("Stock_Quantity"))),
+                AveragePrice = group.Average(row => Convert.ToDecimal((row.Field<string>("Unit_Price")!).Replace("$",""))),
+                ProductCount = group.Count()
+            });
+
+        foreach (var row in results)
+        {
+            Console.WriteLine($"{row.Category} - {row.TotalStock} - {row.AveragePrice} - {row.ProductCount}");
+        }
+        
+        await DownloadManager(JsonSerializer.Serialize(results));
+    }
 }

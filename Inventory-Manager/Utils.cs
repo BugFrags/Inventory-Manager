@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using Microsoft.VisualBasic.FileIO;
-using System.Text.Json;
 
 namespace Inventory_Manager;
 

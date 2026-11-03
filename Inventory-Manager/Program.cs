@@ -18,6 +18,7 @@ var MENU = @"
 [D] Query discontinued products
 [L] List low stock products
 [T] Top Selling products
+[S] Sales by Category
 [E] Exit
 ";
 
@@ -46,6 +47,12 @@ while (running)
             break;
         case "L":
             await LowStockProducts(inventory);
+            break;
+        case "T":
+            await TopSellingProducts(inventory);
+            break;
+        case "S":
+            await SalesByCategory(inventory);
             break;
         case "E": 
             Console.WriteLine("Have a nice day!"); 
