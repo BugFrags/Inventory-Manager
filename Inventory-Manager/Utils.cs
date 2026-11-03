@@ -6,7 +6,7 @@ namespace Inventory_Manager;
 
 public class Utils
 {
-    static string PATH = "PATH-TO-INVENTORY";
+    static string PATH = "PATH-TO-DATABASE";
     
     private static DataTable LoadCsv(string path, bool hasHeader = true)
     {
@@ -49,22 +49,4 @@ public class Utils
         return myInventory;
     }
     
-    /// <summary>
-    /// Inputs a datatable of our inventory, creates a JSON of each discontinued item organized by supplier.
-    /// </summary>
-    /// <param name="dt">Datatable of our Inventory</param>
-    public static void ListDiscontinuedItems(DataTable dt)
-    {
-        var results = dt.AsEnumerable()
-            .Where(row => row.Field<String>("Status") == "Discontinued")
-            .Select(row => new
-            {
-                Name = row.Field<string>("Product_Name"),
-                Catagory = row.Field<string>("Catagory"),
-                Supplier = row.Field<string>("Supplier_Name")
-            });
-        
-        string JSON = JsonSerializer.Serialize(results);
-        File.WriteAllText("DiscontinuedItems.json", JSON);
-    }
 }
